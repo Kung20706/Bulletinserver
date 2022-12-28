@@ -5,24 +5,8 @@
 後端架構使用 Gin 作為 HTTP 伺服器，並使用 Swagger 來產生 API 文件。
 ## 啟動方式
 
-git pull repostory
+git pull https://github.com/Kung20706/Bulletinserver.git
 
-go mod init app
-
-go mod tidy
-
-
-API 文件在產生時引入包的版本有誤:
-需要引入穩定版本，添加這段代碼到go.sum內 
-require(
-github.com/swaggo/gin-swagger v1.4.3
-	github.com/swaggo/swag v1.8.1)
-    
-go mod tidy
-
-swag init
-將文件
-docs/docs.go init() 改成大寫 Init()
 go run main.go
 
 swagger文件路徑: http://localhost:3000/swagger/index.html#/
