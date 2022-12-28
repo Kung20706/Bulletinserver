@@ -1,0 +1,239 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a user API for a bulletin board system.",
+        "contact": {},
+        "version": "1.0"
+    },
+    "paths": {
+        "/announcements": {
+            "get": {
+                "description": "佈告列表路徑 提供當前所有佈告內容",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "取得佈告列表",
+                "parameters": [
+                    {
+                        "description": "BulletinList Request",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.BulletinListRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.BulletinListResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "發送主題和內容 新增佈告欄公告",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "新增佈告",
+                "parameters": [
+                    {
+                        "description": "AddBulletin Request",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.AddBulletinRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.BulletinResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/announcements/:id": {
+            "put": {
+                "description": "發送主題和內容 新增佈告欄公告",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "編輯佈告",
+                "parameters": [
+                    {
+                        "description": "WriteBulletin Request",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.WriteBulletinRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.WriteBulletinResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/announcements/{id}": {
+            "delete": {
+                "description": "發送編號 刪除佈告欄公告",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "刪除公告",
+                "operationId": "announcements-delete",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "佈告ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "刪除成功",
+                        "schema": {
+                            "type": "Success"
+                        }
+                    },
+                    "400": {
+                        "description": "輸入不正確",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "找不到資源",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "main.AddBulletinRequest": {
+            "type": "object",
+            "required": [
+                "content",
+                "title"
+            ],
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.BulletinListRequest": {
+            "type": "object"
+        },
+        "main.BulletinListResponse": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "description": "佈告欄內文",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "佈告欄編號",
+                    "type": "integer"
+                },
+                "title": {
+                    "description": "佈告欄主旨",
+                    "type": "string"
+                }
+            }
+        },
+        "main.BulletinResponse": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.WriteBulletinRequest": {
+            "type": "object",
+            "required": [
+                "content",
+                "id",
+                "title"
+            ],
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.WriteBulletinResponse": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

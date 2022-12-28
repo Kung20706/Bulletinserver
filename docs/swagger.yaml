@@ -1,0 +1,157 @@
+definitions:
+  main.AddBulletinRequest:
+    properties:
+      content:
+        type: string
+      title:
+        type: string
+    required:
+    - content
+    - title
+    type: object
+  main.BulletinListRequest:
+    type: object
+  main.BulletinListResponse:
+    properties:
+      content:
+        description: 佈告欄內文
+        type: string
+      id:
+        description: 佈告欄編號
+        type: integer
+      title:
+        description: 佈告欄主旨
+        type: string
+    type: object
+  main.BulletinResponse:
+    properties:
+      content:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
+  main.WriteBulletinRequest:
+    properties:
+      content:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+    required:
+    - content
+    - id
+    - title
+    type: object
+  main.WriteBulletinResponse:
+    properties:
+      content:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: This is a user API for a bulletin board system.
+  version: "1.0"
+paths:
+  /announcements:
+    get:
+      consumes:
+      - application/json
+      description: 佈告列表路徑 提供當前所有佈告內容
+      parameters:
+      - description: BulletinList Request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/main.BulletinListRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.BulletinListResponse'
+      summary: 取得佈告列表
+      tags:
+      - user
+    post:
+      consumes:
+      - application/json
+      description: 發送主題和內容 新增佈告欄公告
+      parameters:
+      - description: AddBulletin Request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/main.AddBulletinRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.BulletinResponse'
+      summary: 新增佈告
+      tags:
+      - user
+  /announcements/:id:
+    put:
+      consumes:
+      - application/json
+      description: 發送主題和內容 新增佈告欄公告
+      parameters:
+      - description: WriteBulletin Request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/main.WriteBulletinRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.WriteBulletinResponse'
+      summary: 編輯佈告
+      tags:
+      - user
+  /announcements/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 發送編號 刪除佈告欄公告
+      operationId: announcements-delete
+      parameters:
+      - description: 佈告ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 刪除成功
+          schema:
+            type: Success
+        "400":
+          description: 輸入不正確
+          schema:
+            type: string
+        "404":
+          description: 找不到資源
+          schema:
+            type: string
+      summary: 刪除公告
+      tags:
+      - user
+swagger: "2.0"
